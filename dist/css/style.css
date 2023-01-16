@@ -1902,16 +1902,6 @@ input.error {
   background-color: rgba(0, 0, 0, 0.45);
 }
 
-/* .modal-document {
-  background-image: url('../images/documents/original/document4.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin: auto;
-  max-width: 68vh;
-  height: 100%;
-} */
-
 .benefits-wrap {
   display: flex;
   justify-content: space-between;
