@@ -2,18 +2,22 @@
 
 import { validatePhoneInput, validateNameInput } from "./validate"
 import { closeModal } from "./modals"
+import { animate } from "./helpers"
 export { fillForm }
 
 const loadText = 'Загрузка...'
 const errorText = 'Ошибка!'
 const successText = 'Заявка принята!'
 
-let modal, cleanForm, btn, btnDefaultText
+let modal, cleanForm, btn, btnDefaultText, nameVal, phoneVal
 
 const sendForm = async (data) => {
+    btn.textContent = loadText
 
     const endSending = () => {
         setTimeout(() => {
+            nameVal = ''
+            phoneVal = ''
             cleanForm.forEach((input) => input.value = '')
             btn.textContent = btnDefaultText
             if (modal) closeModal(modal)
@@ -39,7 +43,15 @@ const sendForm = async (data) => {
 
 const fillForm = () => {
     const forms = document.querySelectorAll('.rf')
-    let nameVal, phoneVal
+
+    const drawBorder = (event, name) => {
+        event.target.closest('form[name="action-form"]').querySelectorAll('input').forEach((input) => {
+            if (input.name === name) {
+                input.style.border = '1px solid red'
+                setTimeout(() => { input.style.border = 'none' }, 1000)
+            }
+        })
+    }
 
     forms.forEach((form) => {
         form.addEventListener('input', (e) => {
@@ -58,20 +70,24 @@ const fillForm = () => {
 
             const data = { name: nameVal, phone: phoneVal }
 
-            if (e.target.type === 'submit' && nameVal != '' && phoneVal != '') {
+            if (e.target.type === 'submit' && nameVal && phoneVal) {
                 const total = document.getElementById('calc-total')
                 modal = form.closest('.header-modal, .services-modal')
                 cleanForm = form.querySelectorAll('input')
                 btn = e.target
-                btnText = e.target.textContent
+                btnDefaultText = e.target.textContent
 
                 if (document.body.classList.contains('balkony') && total) {
                     if (total.value != '') data.total = total.value
                 }
 
-                btn.textContent = loadText
-
                 sendForm(data)
+            } else if (e.target.type === 'submit' && !nameVal) {
+                drawBorder(e, 'fio')
+            }
+
+            if (e.target.type === 'submit' && !phoneVal) {
+                drawBorder(e, 'phone')
             }
         })
     })
