@@ -1,7 +1,7 @@
 'use strict'
 
 import { animate } from "./helpers"
-export { modalForm, modalDocument }
+export { modalForm, modalDocument, closeModal }
 
 const overlay = document.querySelector('.overlay')
 const durationTime = 200
@@ -40,6 +40,19 @@ const anim = ({
 
 }
 
+const closeModal = (modal) => {
+    anim({
+        modal: modal,
+        overlay: overlay,
+        isShow: false,
+    })
+
+    setTimeout(() => {
+        overlay.style.display = 'none'
+        modal.style.display = 'none'
+    }, durationTime)
+}
+
 const modalForm = (buttonsSelector, modalSelector, closeModalSelector) => {
     const buttons = document.querySelectorAll(buttonsSelector)
     const modal = document.querySelector(modalSelector)
@@ -62,16 +75,7 @@ const modalForm = (buttonsSelector, modalSelector, closeModalSelector) => {
 
     modal.addEventListener('click', (e) => {
         if (e.target.closest(closeModalSelector)) {
-            anim({
-                modal: modal,
-                overlay: overlay,
-                isShow: false,
-            })
-
-            setTimeout(() => {
-                overlay.style.display = 'none'
-                modal.style.display = 'none'
-            }, durationTime)
+            closeModal(modal)
         }
     })
 }
