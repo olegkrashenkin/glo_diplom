@@ -44,13 +44,23 @@ const sendForm = async (data) => {
 const fillForm = () => {
     const forms = document.querySelectorAll('.rf')
 
-    const drawBorder = (event, name) => {
-        event.target.closest('form[name="action-form"]').querySelectorAll('input').forEach((input) => {
+    const emptyInput = (event, name) => {
+        const formNames = ['form[name="action-form"]', 'form[name="action-form2"]',
+            'form[name="callback-form"]', 'form[name="application-form"]']
+
+        const drawBorder = (input) => {
             if (input.name === name) {
                 input.style.border = '1px solid red'
                 setTimeout(() => { input.style.border = 'none' }, 1000)
             }
-        })
+        }
+
+        for (const formName of formNames) {
+            if (event.target.closest(formName)) {
+                event.target.closest(formName).querySelectorAll('input').forEach((input) => drawBorder(input))
+                return
+            }
+        }
     }
 
     forms.forEach((form) => {
@@ -83,11 +93,11 @@ const fillForm = () => {
 
                 sendForm(data)
             } else if (e.target.type === 'submit' && !nameVal) {
-                drawBorder(e, 'fio')
+                emptyInput(e, 'fio')
             }
 
             if (e.target.type === 'submit' && !phoneVal) {
-                drawBorder(e, 'phone')
+                emptyInput(e, 'phone')
             }
         })
     })
