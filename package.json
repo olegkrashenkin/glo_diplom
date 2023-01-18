@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "http://olegkrashenkin.github.io/glo_diplom",
   "scripts": {
     "build": "webpack --mode=production",
     "watch": "webpack --watch --mode=development",
-    "start": "webpack serve --mode=development --open"
+    "start": "webpack serve --mode=development --open",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "Yama",
   "license": "ISC",
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
