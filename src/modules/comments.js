@@ -8,7 +8,7 @@ const showComments = () => {
     commentsContainer.innerHTML = '<img src="images/loading.svg">'
     commentsContainer.style.cssText = 'display: flex; justify-content: center; margin: 0'
 
-    fetch('../comments.json')
+    fetch('comments.json')
         .then(res => res.json())
         .then(data => data.comments)
         .then(commentsList => {
