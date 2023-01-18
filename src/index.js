@@ -6,6 +6,7 @@ import { timer } from "./modules/timer";
 import { calc } from "./modules/calc";
 import { fillForm } from "./modules/forms";
 import { slider } from "./modules/slider"
+import { showComments } from "./modules/comments"
 
 modalForm('.button>a', '.header-modal', '.header-modal__close')
 modalForm('.service-button>a', '.services-modal', '.services-modal__close')
@@ -28,3 +29,4 @@ slider({
     arrowPrevSelector: ".services__arrow--left",
     arrowNextSelector: ".services__arrow--right"
 })
+showComments()
