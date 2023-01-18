@@ -4,7 +4,10 @@ export { showComments }
 
 const showComments = () => {
     const commentsContainer = document.querySelector('.comments-container')
-    commentsContainer.innerHTML = ''
+
+    commentsContainer.innerHTML = '<img src="images/loading.svg">'
+    commentsContainer.style.cssText = 'display: flex; justify-content: center; margin: 0'
+
     fetch('../comments.json')
         .then(res => res.json())
         .then(data => data.comments)
@@ -22,16 +25,16 @@ const showComments = () => {
 
                     newComm.innerHTML = `
                         <div class="col-xs-3 col-sm-2">
-							<div class="review-user">
-								<img src="${img}" alt="" class="img-responsive avatar">
-							</div>
-						</div>
-						<div class="col-xs-9 col-sm-9">
-							<div class="review-inner ${color} review-arrow review-arrow-left">
-								<p class="text-normal">${data.author}</p>
-								<p>${data.comment}</p>
-							</div>
-						</div>`
+            				<div class="review-user">
+            					<img src="${img}" alt="" class="img-responsive avatar">
+            				</div>
+            			</div>
+            			<div class="col-xs-9 col-sm-9">
+            				<div class="review-inner ${color} review-arrow review-arrow-left">
+            					<p class="text-normal">${data.author}</p>
+            					<p>${data.comment}</p>
+            				</div>
+            			</div>`
 
                     isOrange = !isOrange
                 } else {
@@ -53,11 +56,13 @@ const showComments = () => {
                 left = !left
             }
 
+            commentsContainer.innerHTML = ''
+            commentsContainer.style.cssText = ''
+
             while (id < 3) {
                 createCommItem(commentsList[id])
                 id++
             }
-            console.log(commentsList);
 
             setInterval(() => {
                 if (id === commentsList.length - 1) id = 0
@@ -65,6 +70,5 @@ const showComments = () => {
                 createCommItem(commentsList[id])
                 id++
             }, 20000)
-
         })
 }
