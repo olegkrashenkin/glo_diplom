@@ -70,5 +70,5 @@ const showComments = () => {
                 createCommItem(commentsList[id])
                 id++
             }, 20000)
-        })
+        }).catch(err => err)
 }
