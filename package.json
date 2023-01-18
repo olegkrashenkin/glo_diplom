@@ -17,6 +17,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "imask": "^6.4.3"
+    "imask": "^6.4.3",
+    "swiper": "^8.4.6"
   }
 }

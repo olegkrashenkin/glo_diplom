@@ -1902,17 +1902,6 @@ input.error {
   background-color: rgba(0, 0, 0, 0.45);
 }
 
-.benefits-wrap {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-}
-
-.benefits__item {
-  width: 100%;
-  max-width: 185px;
-}
-
 .benefits-arrows {
   display: flex;
   justify-content: space-between;
@@ -1971,10 +1960,12 @@ input.error {
 }
 
 .smooth-scroll {
+  visibility: hidden;
   position: fixed;
   right: 25px;
   bottom: 25px;
   transform: rotate(90deg);
+
 }
 
 @media (min-width: 576px) {

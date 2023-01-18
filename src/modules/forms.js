@@ -2,7 +2,6 @@
 
 import { validatePhoneInput, validateNameInput } from "./validate"
 import { closeModal } from "./modals"
-import { animate } from "./helpers"
 export { fillForm }
 
 const loadText = 'Загрузка...'
@@ -34,7 +33,6 @@ const sendForm = async (data) => {
             endSending()
             return res.json()
         }
-
     }).catch(err => {
         btn.textContent = errorText
         endSending()
@@ -44,21 +42,23 @@ const sendForm = async (data) => {
 const fillForm = () => {
     const forms = document.querySelectorAll('.rf')
 
-    const emptyInput = (event, name) => {
+    const emptyInput = (event, val, name) => {
         const formNames = ['form[name="action-form"]', 'form[name="action-form2"]',
             'form[name="callback-form"]', 'form[name="application-form"]']
 
-        const drawBorder = (input) => {
-            if (input.name === name) {
-                input.style.border = '1px solid red'
-                setTimeout(() => { input.style.border = 'none' }, 1000)
+        if (event.target.type === 'submit' && !val) {
+            const drawBorder = (input) => {
+                if (input.name === name) {
+                    input.style.border = '1px solid red'
+                    setTimeout(() => { input.style.border = 'none' }, 1000)
+                }
             }
-        }
 
-        for (const formName of formNames) {
-            if (event.target.closest(formName)) {
-                event.target.closest(formName).querySelectorAll('input').forEach((input) => drawBorder(input))
-                return
+            for (const formName of formNames) {
+                if (event.target.closest(formName)) {
+                    event.target.closest(formName).querySelectorAll('input').forEach((input) => drawBorder(input))
+                    return
+                }
             }
         }
     }
@@ -90,15 +90,10 @@ const fillForm = () => {
                 if (document.body.classList.contains('balkony') && total) {
                     if (total.value != '') data.total = total.value
                 }
-
                 sendForm(data)
-            } else if (e.target.type === 'submit' && !nameVal) {
-                emptyInput(e, 'fio')
             }
-
-            if (e.target.type === 'submit' && !phoneVal) {
-                emptyInput(e, 'phone')
-            }
+            emptyInput(e, nameVal, 'fio')
+            emptyInput(e, phoneVal, 'phone')
         })
     })
 }

@@ -6,9 +6,9 @@ const validateCalc = (event) => {
     event.target.value = event.target.value.replace(/\D+/g, '')
 }
 
-const validatePhoneInput = (event, plus) => {
+const validatePhoneInput = (event, isFirstPlus) => {
     let valueLen
-    plus ? valueLen = 17 : valueLen = 16
+    isFirstPlus ? valueLen = 17 : valueLen = 16
 
     if (event.target.value.length <= valueLen) {
         if (event.target.value.length > 1) {
