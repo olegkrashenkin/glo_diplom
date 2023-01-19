@@ -71,15 +71,15 @@ const closeModal = (modal) => {
     scroll(false)
 }
 
-const modalForm = (buttonsSelector, modalSelector, closeModalSelector) => {
-    const buttons = document.querySelectorAll(buttonsSelector)
+const modalForm = (parentSelector, modalSelector, closeModalSelector) => {
+    const parent = document.querySelector(parentSelector)
     const modal = document.querySelector(modalSelector)
 
     overlay.style.opacity = '0'
     modal.style.opacity = '0'
 
-    buttons.forEach((button) => {
-        button.addEventListener('click', (e) => {
+    parent.addEventListener('click', (e) => {
+        if (e.target.closest('.btn')) {
             e.preventDefault()
             overlay.style.display = 'block'
             modal.style.display = 'block'
@@ -90,7 +90,7 @@ const modalForm = (buttonsSelector, modalSelector, closeModalSelector) => {
             })
 
             scroll()
-        })
+        }
     })
 
     modal.addEventListener('click', (e) => {

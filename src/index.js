@@ -8,8 +8,8 @@ import { fillForm } from "./modules/forms";
 import { slider } from "./modules/slider"
 import { showComments } from "./modules/comments"
 
-modalForm('.button>a', '.header-modal', '.header-modal__close')
-modalForm('.service-button>a', '.services-modal', '.services-modal__close')
+modalForm('.button', '.header-modal', '.header-modal__close')
+modalForm('.servises-slider>.row', '.services-modal', '.services-modal__close')
 modalDocument('.sertificate-document')
 smoothScroll('.smooth-scroll')
 timer('20 january 2023')
