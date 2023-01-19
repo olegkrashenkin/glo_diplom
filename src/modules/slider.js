@@ -14,6 +14,7 @@ const slider = ({
         slidesPerView: 1,
         spaceBetween: 30,
         loop: true,
+        allowTouchMove: false,
         autoplay: {
             delay: 2500,
             disableOnInteraction: false,

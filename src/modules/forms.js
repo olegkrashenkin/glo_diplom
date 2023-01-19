@@ -8,7 +8,7 @@ const loadText = 'Загрузка...'
 const errorText = 'Ошибка!'
 const successText = 'Заявка принята!'
 
-let modal, cleanForm, btn, btnDefaultText, nameVal, phoneVal
+let modal, cleanForm, btn, btnDefaultText, nameVal = '', phoneVal = ''
 
 const sendForm = async (data) => {
     btn.textContent = loadText
@@ -42,11 +42,11 @@ const sendForm = async (data) => {
 const fillForm = () => {
     const forms = document.querySelectorAll('.rf')
 
-    const emptyInput = (event, val, name) => {
+    const emptyInput = (event, val, name, length) => {
         const formNames = ['form[name="action-form"]', 'form[name="action-form2"]',
             'form[name="callback-form"]', 'form[name="application-form"]']
 
-        if (event.target.type === 'submit' && !val) {
+        if (event.target.type === 'submit' && val.length < length) {
             const drawBorder = (input) => {
                 if (input.name === name) {
                     input.style.border = '1px solid red'
@@ -80,7 +80,7 @@ const fillForm = () => {
 
             const data = { name: nameVal, phone: phoneVal }
 
-            if (e.target.type === 'submit' && nameVal && phoneVal) {
+            if (e.target.type === 'submit' && nameVal.length >= 2 && phoneVal.length >= 11) {
                 const total = document.getElementById('calc-total')
                 modal = form.closest('.header-modal, .services-modal')
                 cleanForm = form.querySelectorAll('input')
@@ -92,8 +92,9 @@ const fillForm = () => {
                 }
                 sendForm(data)
             }
-            emptyInput(e, nameVal, 'fio')
-            emptyInput(e, phoneVal, 'phone')
+
+            emptyInput(e, nameVal, 'fio', 2)
+            emptyInput(e, phoneVal, 'phone', 11)
         })
     })
 }

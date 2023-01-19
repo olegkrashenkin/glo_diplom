@@ -3,10 +3,10 @@
 export { timer }
 
 const timer = (countDay) => {
-    const timerDays = document.querySelectorAll('.count_1>span')
-    const timerHours = document.querySelectorAll('.count_2>span')
-    const timerMinutes = document.querySelectorAll('.count_3>span')
-    const timerSeconds = document.querySelectorAll('.count_4>span')
+    const timerDays = document.querySelectorAll('.count_1')
+    const timerHours = document.querySelectorAll('.count_2')
+    const timerMinutes = document.querySelectorAll('.count_3')
+    const timerSeconds = document.querySelectorAll('.count_4')
 
     const getTimeRemaning = () => {
         const timeRemaning = (new Date(countDay).getTime() - new Date().getTime()) / 1000
@@ -21,30 +21,63 @@ const timer = (countDay) => {
     const updateClock = () => {
         const getTime = getTimeRemaning()
 
-        const whileTimeIntervals = (timerInterval, interval, isZero = false) => {
-            if (isZero) {
-                timerInterval.forEach((item) => {
-                    item.textContent = '00'
-                })
-            } else {
-                timerInterval.forEach((item) => {
-                    item.textContent = `0${interval}`.slice(-2)
-                })
+        const timeDecl = ({
+            currentTimeVal: currentTimeVal,
+            timerDecl: timerDecl,
+            decl_1: decl_1,
+            decl_2: decl_2,
+            decl_3: decl_3,
+        }) => {
+            if (getTime.timeRemaning < 0) currentTimeVal = '00'
+
+            currentTimeVal = `0${currentTimeVal}`.slice(-2)
+            const tmp = String(currentTimeVal).slice(-1)
+            const decl = () => {
+                switch (true) {
+                    case currentTimeVal >= 5 && currentTimeVal <= 20 || tmp == 0 || tmp >= 5 && tmp <= 9: return decl_1
+                    case tmp == 1: return decl_2
+                    default: return decl_3
+                }
             }
+
+            timerDecl.forEach(item => {
+                item.innerHTML = `${decl()}:<br><span>${currentTimeVal}</span>`
+            })
         }
 
-        if (getTime.timeRemaning > 0) {
-            whileTimeIntervals(timerDays, getTime.days)
-            whileTimeIntervals(timerHours, getTime.hours)
-            whileTimeIntervals(timerMinutes, getTime.minutes)
-            whileTimeIntervals(timerSeconds, getTime.seconds)
-        } else {
-            whileTimeIntervals(timerDays, getTime.days, true)
-            whileTimeIntervals(timerHours, getTime.hours, true)
-            whileTimeIntervals(timerMinutes, getTime.minutes, true)
-            whileTimeIntervals(timerSeconds, getTime.seconds, true)
-            clearInterval(updateClock)
-        }
+        timeDecl({
+            currentTimeVal: getTime.days,
+            timerDecl: timerDays,
+            decl_1: 'Дней',
+            decl_2: 'День',
+            decl_3: 'Дня',
+        })
+
+        timeDecl({
+            currentTimeVal: getTime.hours,
+            timerDecl: timerHours,
+            decl_1: 'Часов',
+            decl_2: 'Час',
+            decl_3: 'Часа',
+        })
+
+        timeDecl({
+            currentTimeVal: getTime.minutes,
+            timerDecl: timerMinutes,
+            decl_1: 'Минут',
+            decl_2: 'Минута',
+            decl_3: 'Минуты',
+        })
+
+        timeDecl({
+            currentTimeVal: getTime.seconds,
+            timerDecl: timerSeconds,
+            decl_1: 'Секунд',
+            decl_2: 'Секунда',
+            decl_3: 'Секунды',
+        })
+
+        clearInterval(updateClock)
     }
 
     updateClock()

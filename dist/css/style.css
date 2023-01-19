@@ -11,6 +11,15 @@ body {
   color: #4f686e;
 }
 
+.disable-scroll {
+  position: fixed;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
 h2 span {
   font-family: "NeoSansCyr-Medium", sans-serif;
 }
@@ -1901,6 +1910,7 @@ input.error {
   height: 100vh;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.45);
+  z-index: 100;
 }
 
 .benefits-arrows {

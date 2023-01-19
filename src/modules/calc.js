@@ -27,6 +27,8 @@ const calc = () => {
                     calcTotal.value = Math.round(progress * calcTotalVal);
                 }
             });
+        } else {
+            calcTotal.value = ''
         }
     }
 
