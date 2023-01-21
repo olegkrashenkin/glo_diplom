@@ -8,17 +8,26 @@ const overlay = document.querySelector('.overlay')
 const durationTime = 200
 
 const scroll = (isEnabled = true) => {
+    const div = document.createElement('div');
+
+    div.style.cssText = 'overflow-y: scroll; width: 50px; height: 50px;'
+    document.body.append(div);
+    let scrollWidth = div.offsetWidth - div.clientWidth;
+
+    div.remove();
     if (isEnabled) {
         const pagePos = window.scrollY
         body.classList.add('disable-scroll')
         body.dataset.position = pagePos
         body.style.top = -pagePos + 'px'
+        body.style.paddingRight = scrollWidth + 'px'
     } else {
         const pagePos = +body.dataset.position
         body.style.top = 'auto'
         body.classList.remove('disable-scroll')
         window.scroll({ top: pagePos, left: 0 })
         body.removeAttribute('data-position')
+        body.style.paddingRight = 0
     }
 }
 
