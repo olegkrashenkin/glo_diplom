@@ -7,7 +7,6 @@ export { fillForm }
 const loadText = 'Загрузка...'
 const errorText = 'Ошибка!'
 const successText = 'Заявка принята!'
-
 let modal, cleanForm, btn, btnDefaultText, nameVal = '', phoneVal = ''
 
 const sendForm = async (data) => {
@@ -78,7 +77,7 @@ const fillForm = () => {
         form.addEventListener('click', (e) => {
             e.preventDefault()
 
-            const data = { name: nameVal, phone: phoneVal }
+            const data = { name: nameVal, phone: phoneVal, page: document.body.className.split(' ')[0] }
 
             if (e.target.type === 'submit' && nameVal.length >= 2 && phoneVal.length >= 11) {
                 const total = document.getElementById('calc-total')
