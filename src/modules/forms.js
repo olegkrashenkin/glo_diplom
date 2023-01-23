@@ -2,12 +2,14 @@
 
 import { validatePhoneInput, validateNameInput } from "./validate"
 import { closeModal } from "./modals"
-export { fillForm }
+export { fillForm, makeData }
 
 const loadText = 'Загрузка...'
 const errorText = 'Ошибка!'
 const successText = 'Заявка принята!'
-let modal, cleanForm, btn, btnDefaultText, nameVal = '', phoneVal = ''
+let modal, cleanForm, btn, btnDefaultText, nameVal = '', phoneVal = '', data = {}
+
+const makeData = (formName) => data.form = formName
 
 const sendForm = async (data) => {
     btn.textContent = loadText
@@ -77,7 +79,9 @@ const fillForm = () => {
         form.addEventListener('click', (e) => {
             e.preventDefault()
 
-            const data = { name: nameVal, phone: phoneVal, page: document.body.className.split(' ')[0] }
+            data.name = nameVal
+            data.phone = phoneVal
+            data.page = document.body.className.split(' ')[0]
 
             if (e.target.type === 'submit' && nameVal.length >= 2 && phoneVal.length >= 11) {
                 const total = document.getElementById('calc-total')
@@ -89,6 +93,7 @@ const fillForm = () => {
                 if (document.body.classList.contains('balkony') && total) {
                     if (total.value != '') data.total = total.value
                 }
+
                 sendForm(data)
             }
 

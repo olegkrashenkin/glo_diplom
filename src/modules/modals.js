@@ -1,6 +1,7 @@
 'use strict'
 
 import { animate } from "./helpers"
+import { makeData } from "./forms"
 export { modalForm, modalDocument, closeModal }
 
 const body = document.body
@@ -90,6 +91,7 @@ const modalForm = (parentSelector, modalSelector, closeModalSelector) => {
     parent.addEventListener('click', (e) => {
         if (e.target.closest('.btn')) {
             e.preventDefault()
+            makeData(e.target.dataset.subject)
             overlay.style.display = 'block'
             modal.style.display = 'block'
 
